@@ -1,33 +1,30 @@
-import React, { useEffect, useState } from "react";
-import Produto from "./Produto";
+import React, { useEffect, useRef, useState } from "react";
+
 
 function App() {
-  const [produto, setProduto] = useState(null);
+  const [carrinho, setCarrinho] = useState(0)
+  const [notificacao, setNotificacao] = useState(null)
+  const timeOut = useRef()
+  function handleClick(){
+    setCarrinho(carrinho + 1)
+    setNotificacao('item Adicionado')
 
-  useEffect(() => {
-    const produtoLocal = window.localStorage.getItem("produto");
-    if(produtoLocal !== null) setProduto(produtoLocal)
-  }, []);
+   
 
-  useEffect(() => {
-    if (produto !== null) window.localStorage.setItem("produto", produto);
-  }, [produto]);
+    clearTimeout(timeOut.current)
 
-  function handleClick({ target }) {
-    setProduto(target.innerText);
+    timeOut.current = setTimeout(() =>{
+      setNotificacao(null)
+    },2000)
   }
+
 
   return (
     <div>
-      <h1>Preferencia: {produto}</h1>
-      <button onClick={handleClick} style={{ marginRight: "1rem" }}>
-        notebook
-      </button>
-      <button onClick={handleClick} style={{ marginRight: "1rem" }}>
-        smartphone
-      </button>
-      <Produto produto={produto} />
+      <p>{notificacao}</p>
+      <button onClick={handleClick}>Adicionar Carrinho {carrinho}</button>
     </div>
+
   );
 }
 
