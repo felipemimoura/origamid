@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function Input({ label, id, value, setValue, ...props}) {
+export default function Input({ label, id, value, onChange, type,onBlur, placeholder, error }) {
   return (
     <>
       <label htmlFor={id}>{label}</label>
@@ -9,9 +9,13 @@ export default function Input({ label, id, value, setValue, ...props}) {
         id={id}
         type="text"
         value={value}
-        onChange={({ target }) => setValue(target.value)}
-        {...props}
+        onChange={onChange}
+        placeholder={placeholder}
+        onBlur={onBlur}
+        type={type}
+        
       />
+      {error && <p>{error}</p>}
     </>
   );
 }
