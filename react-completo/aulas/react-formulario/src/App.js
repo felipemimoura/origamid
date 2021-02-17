@@ -1,43 +1,52 @@
 import { useState } from "react";
-import Input from './Form/Input'
+
+import Checkbox from "./Form/Checkbox";
+import Input from "./Form/Input";
+import Radio from "./Form/Radio";
+import Select from "./Form/Select";
+import useForm from "./Hooks/useForm";
 
 function App() {
-  const [cep, setCep] = useState('')
-  const [error, setError] = useState(null)
+  const cep = useForm('cep')
+  const email = useForm('email')
+  const nome = useForm('')
 
-  function validateCep(value){
-    if(value.length === 0){
-      setError('Preencha um valor')
-      return false
-    }else if(!/^\d{5}-?\d{3}$/.test(value)){
-      setError('Prencha um CEP válido')
-      return false
+  function handleSubmit(event){
+    event.preventDefault()
+    if(cep.validate()){
+      console.log('Enviar')
     }else{
-      setError(null)
-      return true
+      console.log('Não Enviar')
     }
   }
 
-
-  function handleBlur ({target}){
-   console.log(validateCep(target.value))
-  }
-
-
-
   return (
-    <form>
-      <Input
-      label="CEP"
-      id="cep"
-      type="text"
-      value={cep}
-      setValue={setCep}
-      onBlur={handleBlur}
-      placeholder="00000-000" />
+    <form onSubmit={handleSubmit}>
+           <Input
+        label="Nome"
+        id="nome"
+        type="text"
+      {...nome}
 
-      {error && <p>{error}</p>}
-   
+      />
+      <Input
+        label="CEP"
+        id="cep"
+        type="text"
+        placeholder="00000-000"
+        {...cep}
+
+      />
+      <Input
+        label="Email"
+        id="email"
+        type="email"
+       
+        {...email}
+
+      />
+    <button>Enviar</button>
+
     </form>
   );
 }
