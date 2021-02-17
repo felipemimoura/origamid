@@ -1,10 +1,10 @@
-import './App.css'
-import Title from './Title'
+import Produto from "./Components/Produto";
+
 
 function App() {
   return (
-    <div  className="container">
-      <Title />
+    <div  >
+     <Produto />
     </div>
   );
 }
