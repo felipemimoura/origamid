@@ -1,51 +1,43 @@
 import { useState } from "react";
-import Checkbox from "./Form/Checkbox";
-import Input from "./Form/Input";
-import Radio from "./Form/Radio";
-import Select from "./Form/Select";
+import Input from './Form/Input'
 
 function App() {
-  const [nome, setNome] = useState("");
-  const [email, setEmail] = useState("");
-  const [produto, setProduto] = useState("");
-  const [cor, setCor] = useState("");
-  const [frutas, setFrutas] = useState("");
-  const [linguagens, setLinguagens] = useState([]);
-  const [termos, setTermos] = useState([]);
+  const [cep, setCep] = useState('')
+  const [error, setError] = useState(null)
+
+  function validateCep(value){
+    if(value.length === 0){
+      setError('Preencha um valor')
+      return false
+    }else if(!/^\d{5}-?\d{3}$/.test(value)){
+      setError('Prencha um CEP válido')
+      return false
+    }else{
+      setError(null)
+      return true
+    }
+  }
+
+
+  function handleBlur ({target}){
+   console.log(validateCep(target.value))
+  }
+
+
 
   return (
     <form>
-      <h1>Checkbox</h1>
-      <Checkbox
-        options={["Javascript", "PHP", "Ruby"]}
-        value={linguagens}
-        setValue={setLinguagens}
-      />
-      <h1>Termos</h1>
-      <Checkbox
-        options={["Li e aceito os termos"]}
-        value={termos}
-        setValue={setTermos}
-      />
+      <Input
+      label="CEP"
+      id="cep"
+      type="text"
+      value={cep}
+      setValue={setCep}
+      onBlur={handleBlur}
+      placeholder="00000-000" />
 
-
-      <h1>Cores</h1>
-      <Radio options={["azul", "vermelho"]} value={cor} setValue={setCor} />
-      <h1>Frutas</h1>
-      <Radio
-        options={["Pera", "Uva", "Maça", "Melancia"]}
-        value={frutas}
-        setValue={setFrutas}
-      />
-      <Select
-        options={["notebook", "smartphone"]}
-        value={produto}
-        setValue={setProduto}
-      />
-      <Input id="nome" label="Nome" value={nome} setValue={setNome} required />
-      <Input id="email" label="Email" value={email} setValue={setEmail} />
-
-      <button>Enviar</button>
+      {error && <p>{error}</p>}
+   
     </form>
   );
 }
