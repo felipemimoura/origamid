@@ -16,9 +16,8 @@ export const UserStorage = ({ children }) => {
       setError(null);
       setLoading(false);
       setLogin(false);
-      // console.log(navigate);
       window.localStorage.removeItem("token");
-      navigate("/");
+      navigate('/login');
     },
     [navigate]);
 
@@ -50,29 +49,30 @@ export const UserStorage = ({ children }) => {
     }
   }
 
-  // useEffect(() => {
-  //   async function autoLogin() {
-  //     const token = window.localStorage.getItem("token");
-  //     if (token) {
-  //       try {
-  //         setError(null);
-  //         setLoading(true);
-  //         const { url, options } = TOKEN_VALIDATE_POST(token);
-  //         const response = await fetch(url, options);
-  //         if (!response.ok) throw new Error("Token Inválido");
-  //         await getUser(token);
-  //       } catch (err) {
-  //         userLogout();
-  //       } finally {
-  //         setLoading(false);
-  //       }
-  //     }else{
-  //       setLoading(false)
-  //     }
-  //   }
+  useEffect(() => {
+    async function autoLogin() {
+      const token = window.localStorage.getItem("token");
+      if (token) {
+        try {
+          setError(null);
+          setLoading(true);
+          const { url, options } = TOKEN_VALIDATE_POST(token);
+          const response = await fetch(url, options);
+          if (!response.ok) throw new Error("Token Inválido");
+          
+          await getUser(token);
+        } catch (err) {
+          userLogout();
+        } finally {
+          setLoading(false);
+        }
+      }else{
+        setLoading(false)
+      }
+    }
 
-  //   autoLogin();
-  // }, [userLogout]);
+    autoLogin();
+  }, [userLogout]);
 
   return (
     <UserContext.Provider
