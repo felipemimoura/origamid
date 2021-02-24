@@ -6,7 +6,7 @@ export const UserContext = React.createContext();
 
 export const UserStorage = ({ children }) => {
   const [data, setData] = useState(null);
-  const [login, setLogin] = useState(null);
+  const [login, setLogin] = useState(false);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
@@ -18,8 +18,7 @@ export const UserStorage = ({ children }) => {
       setLogin(false);
       window.localStorage.removeItem("token");
       navigate('/login');
-    },
-    [navigate]);
+    },[navigate]);
 
   async function getUser(token) {
     const { url, options } = USER_GET(token);
