@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import Image from "../../Helper/Image";
 import { UserContext } from "../../UserContext";
 import PhotoComments from "./PhotoComments";
 import styles from "./PhotoContent.module.css";
@@ -11,7 +12,7 @@ function PhotoContent({ data }) {
   return (
     <div className={styles.photo}>
       <div className={styles.img}>
-        <img src={photo.src} alt={photo.title} />
+        <Image src={photo.src} alt={photo.title} />
       </div>
       <div className={styles.details}>
         <div>

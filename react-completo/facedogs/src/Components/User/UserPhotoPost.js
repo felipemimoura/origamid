@@ -30,9 +30,9 @@ function UserPhotoPost() {
 
     const token = window.localStorage.getItem("token");
 
-    const { url, opitions } = PHOTO_POST(formData, token);
+    const { url, options } = PHOTO_POST(formData, token);
 
-    request(url, opitions);
+    request(url, options);
   }
   function handleImgChange({ target }) {
     setImg({
