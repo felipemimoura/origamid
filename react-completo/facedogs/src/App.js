@@ -1,26 +1,32 @@
 import React from "react";
-import Header from "./Header";
-import Home from "./Home";
-import Produtos from "./Produtos";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 
+import "./App.css";
+import Header from "./Components/Header";
+import Home from "./Components/Home";
 
+import Footer from "./Components/Footer";
+import Login from "./Components/Login/Login";
+import {UserStorage} from './UserContext'
+import User from "./Components/User/User";
+import ProtectedRoute from "./Helper/ProtectedRoute";
 
 function App() {
-    let Pagina 
-    const {pathname} = window.location
-    if(pathname === '/produtos'){
-        Pagina = Produtos
-    }else{
-        Pagina = Home
-    }
-
   return (
-      <section>
-          <Header />
-          <Pagina />
-         
+    <div>
+      <BrowserRouter>
+      <UserStorage>
 
-      </section>
+      <Header />
+      <Routes>
+        <Route path="/" element={<Home />}/>
+        <Route path='/login/*' element={<Login />}/>
+        <ProtectedRoute path='/conta/*' element={<User />}/>
+      </Routes>
+      <Footer />
+      </UserStorage>
+      </BrowserRouter>
+    </div>
   );
 }
 
