@@ -12,6 +12,7 @@ export function TOKEN_POST(body) {
     },
   };
 }
+
 export function TOKEN_VALIDATE_POST(token) {
   return {
     url: API_URL + "/jwt-auth/v1/token/validate",
@@ -71,15 +72,14 @@ export function PHOTOS_GET({ page, total, user }) {
     },
   };
 }
+
 export function PHOTO_GET(id) {
   return {
     url: API_URL + `/api/photo/${id}`,
-    options: {
-      method: "GET",
-      cache: "no-store",
-    },
   };
 }
+
+
 export function COMMENT_POST(id, body) {
   return {
     url: API_URL + `/api/comment/${id}`,
